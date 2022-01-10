@@ -443,6 +443,16 @@ ARGON2_PUBLIC size_t argon2_encodedlen(uint32_t t_cost, uint32_t m_cost,
                                        uint32_t parallelism, uint32_t saltlen,
                                        uint32_t hashlen, argon2_type type);
 
+/**
+ * Compares contents of given two buffers in a secure (time-constant) way.
+ *
+ * @param b1  Buffer to be compared.
+ * @param b2  Buffer to be compared.
+ * @param len  Number of bytes to compare (buffers must be at least of this size!).
+ * @return  Zero if buffers are equal, non-zero otherwise.
+ */
+ARGON2_PUBLIC int argon2_compare(const uint8_t *b1, const uint8_t *b2, size_t len);
+
 #if defined(__cplusplus)
 }
 #endif
