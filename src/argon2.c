@@ -236,7 +236,7 @@ int argon2id_hash_raw(const uint32_t t_cost, const uint32_t m_cost,
                        ARGON2_VERSION_NUMBER);
 }
 
-static int argon2_compare(const uint8_t *b1, const uint8_t *b2, size_t len) {
+int argon2_compare(const uint8_t *b1, const uint8_t *b2, size_t len) {
     size_t i;
     uint8_t d = 0U;
 

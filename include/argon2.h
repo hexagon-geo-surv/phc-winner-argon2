@@ -18,15 +18,20 @@
 #ifndef ARGON2_H
 #define ARGON2_H
 
-#if (_MSC_VER < 1600)
+#if defined(_MSC_VER) && (_MSC_VER < 1600)
 typedef unsigned __int64 uint64_t;
 typedef unsigned __int32 uint32_t;
 typedef unsigned __int8 uint8_t;
+#ifndef UINT32_MAX
 #define UINT32_MAX   _UI32_MAX
-#define UINT32_C(val) val##ui32
-#else
-#include <stdint.h>
 #endif
+#ifndef UINT32_C
+#define UINT32_C(val) val##ui32
+#endif
+#else /* _MSC_VER */
+#include <stdint.h>
+#endif /* _MSC_VER */
+
 #include <stddef.h>
 #include <limits.h>
 
@@ -437,6 +442,16 @@ ARGON2_PUBLIC const char *argon2_error_message(int error_code);
 ARGON2_PUBLIC size_t argon2_encodedlen(uint32_t t_cost, uint32_t m_cost,
                                        uint32_t parallelism, uint32_t saltlen,
                                        uint32_t hashlen, argon2_type type);
+
+/**
+ * Compares contents of given two buffers in a secure (time-constant) way.
+ *
+ * @param b1  Buffer to be compared.
+ * @param b2  Buffer to be compared.
+ * @param len  Number of bytes to compare (buffers must be at least of this size!).
+ * @return  Zero if buffers are equal, non-zero otherwise.
+ */
+ARGON2_PUBLIC int argon2_compare(const uint8_t *b1, const uint8_t *b2, size_t len);
 
 #if defined(__cplusplus)
 }
